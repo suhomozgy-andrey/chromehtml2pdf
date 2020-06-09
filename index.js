@@ -3,6 +3,7 @@
 // Load packages that we need
 const c = require("commander");
 const p = require("puppeteer");
+const getCookies = require("./cookies");
 
 var args = {
   out: {
@@ -157,20 +158,7 @@ c.action(function (file) {
       const browser = await p.launch(launchConfig);
       const page = await browser.newPage();
       await page.goto(file, { waitUntil: "networkidle0", timeout: 0 });
-      const cookies = [
-        {
-          name: "cookie1",
-          value: "val1",
-        },
-        {
-          name: "cookie2",
-          value: "val2",
-        },
-        {
-          name: "cookie3",
-          value: "val3",
-        },
-      ];
+      const cookies = getCookies({ url: file });
 
       await page.setCookie(...cookies);
       const cookiesSet = await page.cookies(file);
