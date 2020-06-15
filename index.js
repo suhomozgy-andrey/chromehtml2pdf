@@ -28,7 +28,7 @@ const screenshotsFolderName = "./screenshots";
       await page.screenshot({
         path: `${screenshotsFolderName}/${url
           .replace(/http(s)?:\/\//i, "")
-          .replace("/", "_")}.jpg`,
+          .replace(/\//g, "_")}.jpg`,
       });
       await page.close();
     });
